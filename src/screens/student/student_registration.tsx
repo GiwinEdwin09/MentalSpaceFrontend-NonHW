@@ -11,14 +11,15 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { LoginStackList } from '../components/login_stack';
-import { apiUrl } from '../constants';
+import { LoginStackList } from '../../components/login_stack';
+import { apiUrl } from '../../constants';
+import { useCSRFToken } from '../../hooks/useCSRFToken';
 import {
   validateEmail,
   validatePassword,
   validateSame,
   canContinue,
-} from '../signup_logic';
+} from '../../signup_logic';
 
 type StudentRegistrationProps = NativeStackScreenProps<
   LoginStackList,
@@ -34,12 +35,13 @@ const StudentRegistration = ({ navigation }: StudentRegistrationProps) => {
   const [password, setPassword] = useState('');
   const [confirm, setConfirmPass] = useState('');
 
+  const csrfToken = useCSRFToken();
+
   const requestOptions = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Prefer: 'code=200',
-      'X-CSRF-TOKEN': '123',
+      'X-CSRF-TOKEN': csrfToken.data!.csrfToken,
     },
     body: JSON.stringify({
       type: 'Student',
@@ -73,17 +75,6 @@ const StudentRegistration = ({ navigation }: StudentRegistrationProps) => {
           fontWeight="semibold"
         >
           Student Sign Up
-        </Heading>
-        <Heading
-          mt="1"
-          color="coolGray.600"
-          _dark={{
-            color: 'warmGray.200',
-          }}
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign up to continue!
         </Heading>
         <VStack space={3} mt="5">
           <FormControl>

@@ -10,13 +10,13 @@ import {
 } from 'native-base';
 import React, { useState } from 'react';
 
-import { LoginStackList } from '../components/login_stack';
+import { LoginStackList } from '../../components/login_stack';
 import {
   validateEmail,
   validatePassword,
   validateSame,
   canContinue,
-} from '../signup_logic';
+} from '../../signup_logic';
 
 type TeacherRegistrationProps = NativeStackScreenProps<
   LoginStackList,
@@ -40,17 +40,6 @@ const TeacherRegistration = ({ navigation }: TeacherRegistrationProps) => {
           fontWeight="semibold"
         >
           Teacher Sign Up
-        </Heading>
-        <Heading
-          mt="1"
-          color="coolGray.600"
-          _dark={{
-            color: 'warmGray.200',
-          }}
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign up to continue!
         </Heading>
         <VStack space={3} mt="5">
           <FormControl>
